@@ -11,9 +11,9 @@
       <div>
         <form>
           <div class="form-group">
-            <input v-model="searchQuery" class="form-for-find" type="text" placeholder="Поиск по названию картины">
+            <input class="form-for-find" type="text" placeholder="Поиск по названию картины">
           </div>
-          <button  @click.prevent="search" class="button-find button-maket">Найти</button>
+          <button class="button-find button-maket">Найти</button>
         </form>
       </div>
     </nav>
@@ -21,27 +21,10 @@
 </template>
 <script>
 export default {
-  props: {
-    searchQuery: {
-      type: String,
-      required: true
-    }
-  },
   name: 'Header-1',
   data () {
     return {
-      localSearchQuery: this.searchQuery,
-      name: ''
-    }
-  },
-  methods: {
-    handleSearchClick () {
-      this.$emit('search', this.localSearchQuery)
-    }
-  },
-  watch: {
-    searchQuery (newVal) {
-      this.localSearchQuery = this.newVal
+      name: ' '
     }
   }
 }

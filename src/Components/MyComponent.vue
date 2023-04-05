@@ -4,8 +4,7 @@
     <div class="card-wrapper">
     <div class="flex-card">
       <b-card
-      v-for="(card, index)
-      in filteredCards"
+      v-for="(card, index) in cards"
       :key="index"
       :img-src="card.image"
       :title="card.title"
@@ -26,7 +25,6 @@
         <button href="#" v-if="!card.sales"  class="button-maket">Купить</button>
       </div>
       </b-card>
-      <div v-if="filteredCards.length === 0">Нет результатов</div>
     </div>
     </div>
   </div>
@@ -39,9 +37,6 @@ export default {
     components: {
       BCard,
       BCardText
-    },
-    props: {
-      searchQuery: String
     },
     data () {
       return {
@@ -84,23 +79,6 @@ export default {
             sales: true
           }
         ]
-      }
-    },
-    computed: {
-      filteredCards () {
-        if (!this.searchQuery) {
-          return this.cards
-        }
-        return this.cards.filter((card) => {
-          return (
-            card.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-          )
-        })
-      },
-      created () {
-        this.$on('filter-cards', (searchQuery) => {
-          this.searchQuery = searchQuery
-        })
       }
     }
   }

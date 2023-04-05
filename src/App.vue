@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper " style="background:#F6F3F3">
-    <Header  :search-query="searchQuery" @search="searchQuery = $event"/>
-    <MyComponent :cards="filteredCards"/>
+    <Header />
+    <MyComponent/>
     <Footer />
   </div>
 </template>
@@ -20,14 +20,9 @@ export default {
   },
   data () {
     return {
-      searchQuery: ''
-    }
-  },
-  methods: {
-    updateSearchQuery (value) {
-      this.searchQuery = value
     }
   }
+
 }
 </script>
 
