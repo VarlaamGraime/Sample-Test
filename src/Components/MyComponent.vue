@@ -33,53 +33,52 @@
 import { BCard, BCardText } from 'bootstrap-vue'
 
 export default {
-  props: {
-    components: {
-      BCard,
-      BCardText
-    },
-    data () {
-      return {
-        cards: [
-          {
-            title: '«Рождение Венеры» Сандро Боттичелли',
-            image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
-            text: 'Описание карточки 1',
-            oldPrice: '2 000 000',
-            price: '1 000 000',
-            fullprice: true,
-            sales: false
-          },
-          {
-            title: '«Тайная вечеря»  Леонардо да Винчи',
-            image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
-            text: 'Описание карточки 2',
-            oldPrice: 'test',
-            price: '3 000 000',
-            fullprice: false,
-            sales: false,
-            onePrice: false
-          },
-          {
-            title: '«Сотворение Адама» Микеланджело',
-            image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
-            text: 'Описание карточки 3',
-            oldPrice: '6 000 000',
-            price: '5 000 000',
-            fullprice: true,
-            sales: false
-          },
-          {
-            title: '«Урок анатомии»  Рембрандт',
-            image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
-            text: 'Описание карточки 3',
-            oldPrice: ' ',
-            price: ' ',
-            fullprice: true,
-            sales: true
-          }
-        ]
-      }
+  name: 'MyComponent',
+  components: {
+    BCard,
+    BCardText
+  },
+  data () {
+    return {
+      cards: [
+        {
+          title: '«Рождение Венеры» Сандро Боттичелли',
+          image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
+          text: 'Описание карточки 1',
+          oldPrice: '2 000 000',
+          price: '1 000 000',
+          fullprice: true,
+          sales: false
+        },
+        {
+          title: '«Тайная вечеря»  Леонардо да Винчи',
+          image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
+          text: 'Описание карточки 2',
+          oldPrice: 'test',
+          price: '3 000 000',
+          fullprice: false,
+          sales: false,
+          onePrice: false
+        },
+        {
+          title: '«Сотворение Адама» Микеланджело',
+          image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
+          text: 'Описание карточки 3',
+          oldPrice: '6 000 000',
+          price: '5 000 000',
+          fullprice: true,
+          sales: false
+        },
+        {
+          title: '«Урок анатомии»  Рембрандт',
+          image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
+          text: 'Описание карточки 3',
+          oldPrice: ' ',
+          price: ' ',
+          fullprice: true,
+          sales: true
+        }
+      ]
     }
   }
 }
