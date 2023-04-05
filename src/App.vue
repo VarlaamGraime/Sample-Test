@@ -1,28 +1,75 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="wrapper">
+    <Header />
+    <Footer />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './Components/Header.vue'
+import Footer from './Components/Footer.vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header, Footer
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+h1 {
+  font-family: Merriweather;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px
+}
+
+h2 {
+  font-family: Merriweather;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 27px
+}
+
+h3 {
+  font-family: Merriweather;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px
+}
+
+h4 {
+  font-family: Merriweather;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 21px
+}
+
+h5 {
+  font-family: Merriweather;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 21px
+}
+
+h6 {
+  font-family: Merriweather;
+  font-size: 14px;
+  font-weight: lighter;
+  line-height: 21px
+}
+
+p {
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 </style>
