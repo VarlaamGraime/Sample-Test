@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper " style="background:#F6F3F3">
-    <Header />
-    <Content />
+    <Header  :search-query="searchQuery" @search="searchQuery = $event"/>
+    <MyComponent :cards="filteredCards"/>
     <Footer />
   </div>
 </template>
@@ -9,12 +9,24 @@
 <script>
 import Header from './Components/Header.vue'
 import Footer from './Components/Footer.vue'
-import Content from './Components/Content.vue'
 import '@fortawesome/fontawesome-free/css/all.css'
+import MyComponent from './Components/MyComponent.vue'
 export default {
   name: 'App',
   components: {
-    Header, Footer, Content
+    Header,
+    Footer,
+    MyComponent
+  },
+  data () {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    updateSearchQuery (value) {
+      this.searchQuery = value
+    }
   }
 }
 </script>

@@ -5,7 +5,7 @@
     <div class="flex-card">
       <b-card
       v-for="(card, index)
-      in cards"
+      in filteredCards"
       :key="index"
       :img-src="card.image"
       :title="card.title"
@@ -21,10 +21,12 @@
         <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
         <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
         <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
+
         </div>
         <button href="#" v-if="!card.sales"  class="button-maket">Купить</button>
       </div>
       </b-card>
+      <div v-if="filteredCards.length === 0">Нет результатов</div>
     </div>
     </div>
   </div>
@@ -33,52 +35,73 @@
 import { BCard, BCardText } from 'bootstrap-vue'
 
 export default {
-  name: 'AppContent',
-  components: {
-    BCard,
-    BCardText
-  },
-  data () {
-    return {
-      cards: [
-        {
-          title: '«Рождение Венеры» Сандро Боттичелли',
-          image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
-          text: 'Описание карточки 1',
-          oldPrice: '2 000 000',
-          price: '1 000 000',
-          fullprice: true,
-          sales: false
-        },
-        {
-          title: '«Тайная вечеря»  Леонардо да Винчи',
-          image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
-          text: 'Описание карточки 2',
-          oldPrice: 'test',
-          price: '3 000 000',
-          fullprice: false,
-          sales: false,
-          onePrice: false
-        },
-        {
-          title: '«Сотворение Адама» Микеланджело',
-          image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
-          text: 'Описание карточки 3',
-          oldPrice: '6 000 000',
-          price: '5 000 000',
-          fullprice: true,
-          sales: false
-        },
-        {
-          title: '«Урок анатомии»  Рембрандт',
-          image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
-          text: 'Описание карточки 3',
-          oldPrice: ' ',
-          price: ' ',
-          fullprice: true,
-          sales: true
+  props: {
+    components: {
+      BCard,
+      BCardText
+    },
+    props: {
+      searchQuery: String
+    },
+    data () {
+      return {
+        cards: [
+          {
+            title: '«Рождение Венеры» Сандро Боттичелли',
+            image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
+            text: 'Описание карточки 1',
+            oldPrice: '2 000 000',
+            price: '1 000 000',
+            fullprice: true,
+            sales: false
+          },
+          {
+            title: '«Тайная вечеря»  Леонардо да Винчи',
+            image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
+            text: 'Описание карточки 2',
+            oldPrice: 'test',
+            price: '3 000 000',
+            fullprice: false,
+            sales: false,
+            onePrice: false
+          },
+          {
+            title: '«Сотворение Адама» Микеланджело',
+            image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
+            text: 'Описание карточки 3',
+            oldPrice: '6 000 000',
+            price: '5 000 000',
+            fullprice: true,
+            sales: false
+          },
+          {
+            title: '«Урок анатомии»  Рембрандт',
+            image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
+            text: 'Описание карточки 3',
+            oldPrice: ' ',
+            price: ' ',
+            fullprice: true,
+            sales: true
+          }
+        ]
+      }
+    },
+    computed: {
+      filteredCards () {
+        if (!this.searchQuery) {
+          return this.cards
         }
-      ]
+        return this.cards.filter((card) => {
+          return (
+            card.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+          )
+        })
+      },
+      created () {
+        this.$on('filter-cards', (searchQuery) => {
+          this.searchQuery = searchQuery
+        })
+      }
     }
   }
 }

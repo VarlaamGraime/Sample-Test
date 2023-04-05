@@ -18,7 +18,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 new Vue({
   render: h => h(App)
 }).$mount('#app')
-
 Vue({
   el: '#app',
   components: {

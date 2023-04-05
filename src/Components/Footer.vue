@@ -14,7 +14,6 @@
   </footer>
 </template>
 <script>
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -25,7 +24,6 @@ export default {
     }
   },
   components: {
-    // FontAwesomeIcon
   },
   computed: {
     phoneLink () {
