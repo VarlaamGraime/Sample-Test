@@ -1,6 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper " style="background:#F6F3F3">
     <Header />
+    <Content />
     <Footer />
   </div>
 </template>
@@ -8,15 +9,14 @@
 <script>
 import Header from './Components/Header.vue'
 import Footer from './Components/Footer.vue'
+import Content from './Components/Content.vue'
 import '@fortawesome/fontawesome-free/css/all.css'
-
 export default {
   name: 'App',
   components: {
-    Header, Footer
+    Header, Footer, Content
   }
 }
-
 </script>
 
 <style>

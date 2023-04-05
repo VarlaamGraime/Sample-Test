@@ -13,7 +13,7 @@
           <div class="form-group">
             <input   class="form-for-find" type="text" placeholder="Поиск по названию картины">
           </div>
-          <button   class="button-find">Найти</button>
+          <button   class="button-find button-maket">Найти </button>
         </form>
       </div>
     </nav>
@@ -117,6 +117,7 @@ right: 18.33%;
 top: 24px;
 padding-left: 16px;
 color: #343030;
+margin-left: 68px;
 }
 
 .button-find{
@@ -128,7 +129,24 @@ top: 24px;
 background: #403432;
 border-radius: 0px;
 color: #FFFFFF;
+margin-left: 68px;
 }
+
+.button-maket{
+background: #403432;
+border-radius: 0px;
+color: #FFFFFF;
+width: 118px;
+height: 48px;
+}
+.button-maket:hover{
+  background: #776763;
+  border-radius: 0px;
+  color: #FFFFFF;
+  width: 118px;
+  height: 48px;
+  transition: .3s;
+  }
 
 .form-for-find::placeholder {
   padding-left: 16px;
