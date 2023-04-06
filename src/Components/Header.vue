@@ -139,6 +139,13 @@ color: #FFFFFF;
 width: 118px;
 height: 48px;
 }
+.button-maket-ok{
+  background: #5B3A32;
+  border-radius: 0px;
+  color: #FFFFFF;
+  width: 118px;
+  height: 48px;
+  }
 .button-maket:hover{
   background: #776763;
   border-radius: 0px;

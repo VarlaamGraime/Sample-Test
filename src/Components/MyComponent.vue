@@ -4,30 +4,38 @@
     <div class="card-wrapper">
       <div class="flex-card">
         <b-card
-            v-for="(card, index) in cards"
-            :key="index"
-            :img-src="card.image"
-            :title="card.title"
-            :price="card.oldPrice"
-              img-alt="card.title"
-              img-top
-              tag="article"
-              style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
-              @click="showModal(card)"
-            >
+        v-for="(card, index) in cards"
+        :key="index"
+        :img-src="card.image"
+        :price="card.oldPrice"
+        img-alt="card.title"
+        img-top
+        tag="article"
+        style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
+      >
+        <a class="title-card" @click.stop="showModal(card)">{{ card.title }}</a>
 
             <div v-if="card.sales" class="sales-card"></div>
-            <div @click.stop="showModal(card)" class="block-price-with-butt" >
+            <div class="block-price-with-butt" >
               <div  class="block-price ">
               <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
               <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
               <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
               </div>
-              <button @click.stop="showModal(card)" @click="buyCard(card.id); addToCart(index)" :id="'buy-btn-' + card.id" :disabled="processing || card.inCart" href="#" v-if="!card.sales" class="button-maket">
-                <span v-if="card.inCart">
-                  <i class="fas fa-check"></i> В корзине
+
+              <button
+                      @click.stop.passive="showModal(card)"
+                      @click="buyCard(card.id); addToCart(index)"
+                      :id="'buy-btn-' + card.id"
+                      :disabled="processing || card.inCart"
+                      href="#"
+                      v-bind:class="{'button-maket': !card.inCart, 'button-maket-ok': card.inCart}"
+                      v-if="!card.sales" class="button-maket" >
+
+                <span v-if="card.inCart" >
+                  <i  class="fas fa-check"></i> В корзине
                 </span>
-                <span v-else>
+                <span  v-else >
                   <i></i> Купить
                 </span>
               </button>
@@ -266,5 +274,17 @@ white-space: nowrap;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.title-card{
+  font-family: 'Merriweather';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 150%;
+display: flex;
+align-items: center;
+text-decoration: none;
+color: #343030;
+cursor: pointer;
 }
 </style>
