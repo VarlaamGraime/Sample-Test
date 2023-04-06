@@ -24,7 +24,6 @@
               </div>
 
               <button
-                      @click.stop.passive="showModal(card)"
                       @click="buyCard(card.id); addToCart(index)"
                       :id="'buy-btn-' + card.id"
                       :disabled="processing || card.inCart"
