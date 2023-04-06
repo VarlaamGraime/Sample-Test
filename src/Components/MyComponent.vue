@@ -15,14 +15,15 @@
               style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
               @click="showModal(card)"
             >
+
             <div v-if="card.sales" class="sales-card"></div>
-            <div class="block-price-with-butt" >
+            <div @click.stop="showModal(card)" class="block-price-with-butt" >
               <div  class="block-price ">
               <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
               <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
               <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
               </div>
-              <button @click="buyCard(card.id); addToCart(index)" :id="'buy-btn-' + card.id" :disabled="processing || card.inCart" href="#" v-if="!card.sales" class="button-maket">
+              <button @click.stop="showModal(card)" @click="buyCard(card.id); addToCart(index)" :id="'buy-btn-' + card.id" :disabled="processing || card.inCart" href="#" v-if="!card.sales" class="button-maket">
                 <span v-if="card.inCart">
                   <i class="fas fa-check"></i> В корзине
                 </span>
@@ -37,9 +38,8 @@
             <b-img :src="selectedItem.imgSrc" fluid></b-img>
             <h5>{{ selectedItem.title }}</h5>
             <b-carousel id="carousel1" ref="carousel" controls>
-              <b-carousel-slide caption="Slide 1" img-src="https://picsum.photos/900/500?img=1"></b-carousel-slide>
-              <b-carousel-slide caption="Slide 2" img-src="https://picsum.photos/900/500?img=2"></b-carousel-slide>
-              <b-carousel-slide caption="Slide 3" img-src="https://picsum.photos/900/500?img=3"></b-carousel-slide>
+              <b-carousel-slide   :key="index" :img-src="selectedItem.image"></b-carousel-slide>
+              <b-carousel-slide   :key="index + '2'" :img-src="selectedItem.image1"></b-carousel-slide>
             </b-carousel>
             <p>{{ selectedItem.text }}</p>
             <p>{{ selectedItem.price }}</p>
@@ -81,9 +81,7 @@ export default {
           sales: false,
           id: 1,
           inCart: false,
-          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
-          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
-          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000'
         },
         {
           title: '«Тайная вечеря»  Леонардо да Винчи',
@@ -96,9 +94,7 @@ export default {
           onePrice: false,
           id: 2,
           inCart: false,
-          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
-          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
-          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
+          image1: 'https://via.placeholder.com/600x400/FFD700/000000'
         },
         {
           title: '«Сотворение Адама» Микеланджело',
@@ -110,9 +106,7 @@ export default {
           sales: false,
           id: 3,
           inCart: false,
-          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
-          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
-          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
+          image1: 'https://via.placeholder.com/600x400/FF6347/000000'
         },
         {
           title: '«Урок анатомии»  Рембрандт',
@@ -124,9 +118,7 @@ export default {
           sales: true,
           id: 4,
           inCart: false,
-          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
-          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
-          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000'
         }
       ],
       selectedItem: {},
@@ -138,7 +130,6 @@ export default {
   },
   mounted () {
     const cart = localStorage.getItem('cart')
-    this.$refs.carousel1.interval = 5000
     if (cart) {
       this.cards = JSON.parse(cart)
     }
