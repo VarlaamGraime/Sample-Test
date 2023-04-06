@@ -94,7 +94,7 @@ export default {
       const checkIcon = document.createElement('span')
       checkIcon.classList.add('fa', 'fa-check')
       buyBtn.disabled = true
-      buyBtn.innerText = 'Обрабатывается'
+      buyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обрабатывается'
       setTimeout(() => {
         buyBtn.innerHTML = '<i class="fas fa-check"></i> В корзине'
       }, 2000)
