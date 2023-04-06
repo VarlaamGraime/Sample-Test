@@ -2,31 +2,36 @@
   <div class="app-content"  >
     <h1 class="title-shop">Картины эпохи Возрождения</h1>
     <div class="card-wrapper">
-    <div class="flex-card">
-      <b-card
-      v-for="(card, index) in cards"
-      :key="index"
-      :img-src="card.image"
-      :title="card.title"
-      :price="card.oldPrice"
-        img-alt="card.title"
-        img-top
-        tag="article"
-        style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
-      >
-      <div v-if="card.sales" class="sales-card"></div>
-      <div class="block-price-with-butt" >
-        <div  class="block-price ">
-        <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
-        <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
-        <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
-        </div>
-        <button @click="buyCard(card.id)" :id="'buy-btn-' + card.id" :disabled="processing" href="#" v-if="!card.sales"  class="button-maket">
-          Купить
-        </button>
+      <div class="flex-card">
+        <b-card
+            v-for="(card, index) in cards"
+            :key="index"
+            :img-src="card.image"
+            :title="card.title"
+            :price="card.oldPrice"
+              img-alt="card.title"
+              img-top
+              tag="article"
+              style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
+          >
+            <div v-if="card.sales" class="sales-card"></div>
+            <div class="block-price-with-butt" >
+              <div  class="block-price ">
+              <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
+              <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
+              <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
+              </div>
+              <button @click="buyCard(card.id); addToCart(index)" :id="'buy-btn-' + card.id" :disabled="processing || card.inCart" href="#" v-if="!card.sales" class="button-maket">
+                <span v-if="card.inCart">
+                  <i class="fas fa-check"></i> В корзине
+                </span>
+                <span v-else>
+                  <i></i> Купить
+                </span>
+              </button>
+            </div>
+        </b-card>
       </div>
-      </b-card>
-    </div>
     </div>
   </div>
 </template>
@@ -50,7 +55,8 @@ export default {
           price: '1 000 000 $',
           fullprice: true,
           sales: false,
-          id: 1
+          id: 1,
+          inCart: false
         },
         {
           title: '«Тайная вечеря»  Леонардо да Винчи',
@@ -61,7 +67,8 @@ export default {
           fullprice: false,
           sales: false,
           onePrice: false,
-          id: 2
+          id: 2,
+          inCart: false
         },
         {
           title: '«Сотворение Адама» Микеланджело',
@@ -71,7 +78,8 @@ export default {
           price: '5 000 000 $',
           fullprice: true,
           sales: false,
-          id: 3
+          id: 3,
+          inCart: false
         },
         {
           title: '«Урок анатомии»  Рембрандт',
@@ -81,14 +89,26 @@ export default {
           price: ' ',
           fullprice: true,
           sales: true,
-          id: 4
+          id: 4,
+          inCart: false
         }
       ],
       processing: false,
       purchased: false
     }
   },
+  mounted () {
+    const cart = localStorage.getItem('cart')
+    if (cart) {
+      this.cards = JSON.parse(cart)
+    }
+  },
   methods: {
+    addToCart (index) {
+      const card = this.cards[index]
+      card.inCart = true
+      localStorage.setItem('cart', JSON.stringify(this.cards))
+    },
     buyCard (cardId) {
       const buyBtn = document.getElementById('buy-btn-' + cardId)
       const checkIcon = document.createElement('span')
