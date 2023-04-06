@@ -13,7 +13,8 @@
               img-top
               tag="article"
               style="background-color: transparent; max-width:280px;max-height:328px; margin-top:120px; left: 18.33%; margin-right:32px;style=background:#F6F3F3 "
-          >
+              @click="showModal(card)"
+            >
             <div v-if="card.sales" class="sales-card"></div>
             <div class="block-price-with-butt" >
               <div  class="block-price ">
@@ -31,21 +32,44 @@
               </button>
             </div>
         </b-card>
+        <b-modal v-model="showModalFlag" title="Карточка товара">
+          <b-card>
+            <b-img :src="selectedItem.imgSrc" fluid></b-img>
+            <h5>{{ selectedItem.title }}</h5>
+            <b-carousel id="carousel1" ref="carousel" controls>
+              <b-carousel-slide caption="Slide 1" img-src="https://picsum.photos/900/500?img=1"></b-carousel-slide>
+              <b-carousel-slide caption="Slide 2" img-src="https://picsum.photos/900/500?img=2"></b-carousel-slide>
+              <b-carousel-slide caption="Slide 3" img-src="https://picsum.photos/900/500?img=3"></b-carousel-slide>
+            </b-carousel>
+            <p>{{ selectedItem.text }}</p>
+            <p>{{ selectedItem.price }}</p>
+          </b-card>
+        </b-modal>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { BCard, BCardText } from 'bootstrap-vue'
-
+import { BCard, BCardText, BModal, BImg, BCarousel, BCarouselSlide } from 'bootstrap-vue'
 export default {
+  props: {
+    image: {
+      type: String,
+      required: true
+    }
+  },
   name: 'MyComponent',
   components: {
     BCard,
-    BCardText
+    BCardText,
+    BModal,
+    BImg,
+    BCarousel,
+    BCarouselSlide
   },
   data () {
     return {
+      showCarousel: true,
       cards: [
         {
           title: '«Рождение Венеры» Сандро Боттичелли',
@@ -56,7 +80,10 @@ export default {
           fullprice: true,
           sales: false,
           id: 1,
-          inCart: false
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
+          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
+          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
         },
         {
           title: '«Тайная вечеря»  Леонардо да Винчи',
@@ -68,7 +95,10 @@ export default {
           sales: false,
           onePrice: false,
           id: 2,
-          inCart: false
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
+          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
+          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
         },
         {
           title: '«Сотворение Адама» Микеланджело',
@@ -79,26 +109,36 @@ export default {
           fullprice: true,
           sales: false,
           id: 3,
-          inCart: false
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
+          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
+          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
         },
         {
           title: '«Урок анатомии»  Рембрандт',
           image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
-          text: 'Описание карточки 3',
+          text: 'Описание карточки 4',
           oldPrice: ' ',
           price: ' ',
           fullprice: true,
           sales: true,
           id: 4,
-          inCart: false
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000',
+          image2: 'https://via.placeholder.com/600x400/FFD700/000000',
+          image3: 'https://via.placeholder.com/600x400/FF6347/000000'
         }
       ],
+      selectedItem: {},
+      showModalFlag: false,
       processing: false,
-      purchased: false
+      purchased: false,
+      selectedCard: null
     }
   },
   mounted () {
     const cart = localStorage.getItem('cart')
+    this.$refs.carousel1.interval = 5000
     if (cart) {
       this.cards = JSON.parse(cart)
     }
@@ -118,6 +158,10 @@ export default {
       setTimeout(() => {
         buyBtn.innerHTML = '<i class="fas fa-check"></i> В корзине'
       }, 2000)
+    },
+    showModal (card) {
+      this.selectedItem = card
+      this.showModalFlag = true
     }
   }
 }
