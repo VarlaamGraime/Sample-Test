@@ -96,8 +96,7 @@ export default {
       buyBtn.disabled = true
       buyBtn.innerText = 'Обрабатывается'
       setTimeout(() => {
-        buyBtn.innerText = ' В корзине'
-        buyBtn.appendChild(checkIcon)
+        buyBtn.innerHTML = '<i class="fas fa-check"></i> В корзине'
       }, 2000)
     }
   }
