@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper " style="background:#F6F3F3">
-    <Header />
-    <MyComponent/>
+    <Header @filter-items="filterItems" />
+    <MyComponent :items="items"/>
     <Footer />
   </div>
 </template>
@@ -21,9 +21,66 @@ export default {
   },
   data () {
     return {
+      items: [
+        {
+          title: '«Рождение Венеры» Сандро Боттичелли',
+          image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
+          text: 'Описание карточки 1',
+          oldPrice: '2 000 000 $',
+          price: '1 000 000 $',
+          fullprice: true,
+          sales: false,
+          id: 1,
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000'
+        },
+        {
+          title: '«Тайная вечеря»  Леонардо да Винчи',
+          image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
+          text: 'Описание карточки 2',
+          oldPrice: 'test',
+          price: '3 000 000 $',
+          fullprice: false,
+          sales: false,
+          onePrice: false,
+          id: 2,
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/FFD700/000000'
+        },
+        {
+          title: '«Сотворение Адама» Микеланджело',
+          image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
+          text: 'Описание карточки 3',
+          oldPrice: '6 000 000 $',
+          price: '5 000 000 $',
+          fullprice: true,
+          sales: false,
+          id: 3,
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/FF6347/000000'
+        },
+        {
+          title: '«Урок анатомии»  Рембрандт',
+          image: 'https://i.ibb.co/JC597h9/20152310142330-1.png',
+          text: 'Описание карточки 4',
+          oldPrice: '  ',
+          price: '  ',
+          fullprice: true,
+          sales: true,
+          id: 4,
+          inCart: false,
+          image1: 'https://via.placeholder.com/600x400/7CFC00/000000'
+        }
+      ]
+    }
+  },
+  methods: {
+    filterItems (search) {
+      this.$children[1].filteredItems = this.items.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      )
     }
   }
-
 }
 </script>
 

@@ -11,7 +11,7 @@
       <div>
         <form>
           <div class="form-group">
-            <input class="form-for-find" type="text" placeholder="Поиск по названию картины">
+            <input  class="form-for-find" v-model="search" @input="filterItems" type="text" placeholder="Поиск по названию картины">
           </div>
           <button class="button-find button-maket">Найти</button>
         </form>
@@ -24,7 +24,13 @@ export default {
   name: 'Header-1',
   data () {
     return {
-      name: ''
+      name: '',
+      search: ''
+    }
+  },
+  methods: {
+    filterItems () {
+      this.$emit('filter-items', this.search)
     }
   }
 }

@@ -4,7 +4,7 @@
     <div class="card-wrapper">
       <div class="flex-card">
         <b-card
-        v-for="(card, index) in cards"
+        v-for="(card, index) in filteredItems"
         :key="index"
         :img-src="card.image"
         :price="card.oldPrice"
@@ -64,6 +64,10 @@ export default {
     image: {
       type: String,
       required: true
+    },
+    items: {
+      type: Array,
+      required: true
     }
   },
   name: 'MyComponent',
@@ -77,6 +81,7 @@ export default {
   },
   data () {
     return {
+      filteredItems: this.items,
       showCarousel: true,
       cards: [
         {
@@ -142,7 +147,16 @@ export default {
       this.cards = JSON.parse(cart)
     }
   },
+  watch: {
+    items () {
+      this.filterItems()
+    }
+  },
   methods: {
+    filterItems () {
+      const regex = new RegExp(this.$parent.search, 'i')
+      this.filteredItems = this.items.filter((item) => regex.test(item.title))
+    },
     addToCart (index) {
       const card = this.cards[index]
       card.inCart = true
