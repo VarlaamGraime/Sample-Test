@@ -24,7 +24,7 @@ export default {
   name: 'Header-1',
   data () {
     return {
-      name: ' '
+      name: ''
     }
   }
 }

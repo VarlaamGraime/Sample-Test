@@ -20,9 +20,10 @@
         <b-card-text v-if="card.fullprice" class="price-crossed">{{card.oldPrice}}</b-card-text>
         <b-card-text :class="{ 'special-text': card.onePrice }"  class="price-normal">{{card.price}}</b-card-text>
         <b-card-text v-if="card.sales"  class="sales-text">Продана на аукционе</b-card-text>
-
         </div>
-        <button href="#" v-if="!card.sales"  class="button-maket">Купить</button>
+        <button @click="buyCard(card.id)" :id="'buy-btn-' + card.id" :disabled="processing" href="#" v-if="!card.sales"  class="button-maket">
+          Купить
+        </button>
       </div>
       </b-card>
     </div>
@@ -45,29 +46,32 @@ export default {
           title: '«Рождение Венеры» Сандро Боттичелли',
           image: 'https://i.ibb.co/BBPJNLJ/painting-63186-1280-1.png',
           text: 'Описание карточки 1',
-          oldPrice: '2 000 000',
-          price: '1 000 000',
+          oldPrice: '2 000 000 $',
+          price: '1 000 000 $',
           fullprice: true,
-          sales: false
+          sales: false,
+          id: 1
         },
         {
           title: '«Тайная вечеря»  Леонардо да Винчи',
           image: 'https://i.ibb.co/k4L9LJG/ae973f6678e037cd297053384aa7dca0-1.png',
           text: 'Описание карточки 2',
           oldPrice: 'test',
-          price: '3 000 000',
+          price: '3 000 000 $',
           fullprice: false,
           sales: false,
-          onePrice: false
+          onePrice: false,
+          id: 2
         },
         {
           title: '«Сотворение Адама» Микеланджело',
           image: 'https://i.ibb.co/0cHfgz7/image-19-1.png',
           text: 'Описание карточки 3',
-          oldPrice: '6 000 000',
-          price: '5 000 000',
+          oldPrice: '6 000 000 $',
+          price: '5 000 000 $',
           fullprice: true,
-          sales: false
+          sales: false,
+          id: 3
         },
         {
           title: '«Урок анатомии»  Рембрандт',
@@ -76,9 +80,25 @@ export default {
           oldPrice: ' ',
           price: ' ',
           fullprice: true,
-          sales: true
+          sales: true,
+          id: 4
         }
-      ]
+      ],
+      processing: false,
+      purchased: false
+    }
+  },
+  methods: {
+    buyCard (cardId) {
+      const buyBtn = document.getElementById('buy-btn-' + cardId)
+      const checkIcon = document.createElement('span')
+      checkIcon.classList.add('fa', 'fa-check')
+      buyBtn.disabled = true
+      buyBtn.innerText = 'Обрабатывается'
+      setTimeout(() => {
+        buyBtn.innerText = ' В корзине'
+        buyBtn.appendChild(checkIcon)
+      }, 2000)
     }
   }
 }
@@ -138,6 +158,8 @@ left: 8.57%;
 right: 58.21%;
 top: 84.76%;
 bottom: 7.93%;
+white-space: nowrap;
+
 }
 .special-text{
   display: flex;
@@ -149,6 +171,8 @@ font-size: 16px;
 color: #343030;
 position: absolute;
 top: 81.71%;
+white-space: nowrap;
+
 }
 .sales-text{
   position: absolute;
@@ -180,5 +204,13 @@ top: 81.71%;
 }
 .card-wrapper {
   position: relative;
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>
